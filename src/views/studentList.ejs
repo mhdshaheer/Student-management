@@ -104,9 +104,6 @@
                     <a href="#" class="nav-item">Dashboard</a>
                     <a href="#" class="nav-item">Students</a>
                     <a href="#" class="nav-item">Courses</a>
-                    <div class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center ml-4">
-                        <span class="font-semibold">JD</span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -127,7 +124,7 @@
         </div>
 
         <!-- Filters and Search -->
-        <div class="glass-card rounded-xl p-4 mb-6">
+        <!-- <div class="glass-card rounded-xl p-4 mb-6">
             <div class="flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center space-x-4 flex-grow">
                     <div class="relative flex-grow max-w-md">
@@ -153,11 +150,14 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- Students Table -->
         <div class="glass-card rounded-xl overflow-hidden">
             <div class="overflow-x-auto">
+                <%if(students.length==0){%>
+                    <div class="p-5 text-center"><h5>No students found</h5></div>
+                    <%}else{%>
                 <table class="w-full">
                     <thead class="bg-red-50">
                         <tr>
@@ -165,70 +165,37 @@
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Email</th>
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Course</th>
                             <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Duration</th>
-                            <th class="px-6 py-3 text-left text-sm font-medium text-gray-700">Status</th>
                             <th class="px-6 py-3 text-right text-sm font-medium text-gray-700">Actions</th>
                         </tr>
                     </thead>
+                    
                     <tbody class="divide-y divide-red-100">
+                        <%students.forEach(student=>{%>
                         <tr class="table-row">
                             <td class="px-6 py-4">
                                 <div class="flex items-center">
-                                    <div class="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-medium">JD</div>
+                                    <div class="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-medium"><%=student.name.slice(0,2).toUpperCase()%></div>
                                     <div class="ml-3">
-                                        <div class="font-medium text-gray-900">John Doe</div>
-                                        <div class="text-sm text-gray-500">ID: STU001</div>
+                                        <div class="font-medium text-gray-900"><%=student.name%></div>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-6 py-4 text-gray-700">john@example.com</td>
-                            <td class="px-6 py-4 text-gray-700">Computer Science</td>
-                            <td class="px-6 py-4 text-gray-700">4 Years</td>
-                            <td class="px-6 py-4">
-                                <span class="status-badge status-active">Active</span>
-                            </td>
+                            <td class="px-6 py-4 text-gray-700"><%=student.email%></td>
+                            <td class="px-6 py-4 text-gray-700"><%=student.course%></td>
+                            <td class="px-6 py-4 text-gray-700"><%=student.duration%></td>
                             <td class="px-6 py-4 text-right space-x-2">
-                                <button class="action-button bg-blue-50 text-blue-600 hover:bg-blue-100">
+                                <button class="action-button bg-blue-50 text-blue-600 hover:bg-blue-100" onclick="window.location.href='/editStudent/<%=student._id%>'">
                                     <i class="fas fa-edit"></i>
                                 </button>
-                                <button class="action-button bg-red-50 text-red-600 hover:bg-red-100">
+                                <button class="action-button bg-red-50 text-red-600 hover:bg-red-100" onclick="window.location.href='/deleteStudent/<%=student._id%>'">
                                     <i class="fas fa-trash"></i>
-                                </button>
-                                <button class="action-button bg-green-50 text-green-600 hover:bg-green-100">
-                                    <i class="fas fa-eye"></i>
                                 </button>
                             </td>
                         </tr>
-                        <!-- More student rows -->
-                        <tr class="table-row">
-                            <td class="px-6 py-4">
-                                <div class="flex items-center">
-                                    <div class="h-10 w-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-medium">JS</div>
-                                    <div class="ml-3">
-                                        <div class="font-medium text-gray-900">Jane Smith</div>
-                                        <div class="text-sm text-gray-500">ID: STU002</div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-gray-700">jane@example.com</td>
-                            <td class="px-6 py-4 text-gray-700">Engineering</td>
-                            <td class="px-6 py-4 text-gray-700">3 Years</td>
-                            <td class="px-6 py-4">
-                                <span class="status-badge status-inactive">Inactive</span>
-                            </td>
-                            <td class="px-6 py-4 text-right space-x-2">
-                                <button class="action-button bg-blue-50 text-blue-600 hover:bg-blue-100">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="action-button bg-red-50 text-red-600 hover:bg-red-100">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                                <button class="action-button bg-green-50 text-green-600 hover:bg-green-100">
-                                    <i class="fas fa-eye"></i>
-                                </button>
-                            </td>
-                        </tr>
+                        <%})%>
                     </tbody>
                 </table>
+                <%}%>
             </div>
 
             <!-- Pagination -->
@@ -236,14 +203,20 @@
                 <div class="text-sm text-gray-700">
                     Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span class="font-medium">20</span> results
                 </div>
-                <div class="flex items-center space-x-2">
-                    <button class="action-button bg-white text-gray-700 hover:bg-red-50">Previous</button>
-                    <button class="action-button bg-red-600 text-white hover:bg-red-700">1</button>
-                    <button class="action-button bg-white text-gray-700 hover:bg-red-50">2</button>
-                    <button class="action-button bg-white text-gray-700 hover:bg-red-50">Next</button>
-                </div>
+                    <div class="flex items-center space-x-2">
+                        <button class="action-button bg-white text-gray-700 hover:bg-red-50 p-1">Previous</button>
+                        <button class="action-button bg-red-600 text-white hover:bg-red-700 p-1">1</button>
+                        <button class="action-button bg-white text-gray-700 hover:bg-red-50 p-1">2</button>
+                        <button class="action-button bg-white text-gray-700 hover:bg-red-50 p-1">Next</button>
+                    </div>
             </div>
         </div>
     </main>
 </body>
+<!-- <script>
+    function editStudent(stdId){
+        axios.put(`/editStudent/${stdId}`)
+    }
+</script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
 </html>

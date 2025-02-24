@@ -144,7 +144,7 @@
                 </div>
                 <div class="flex items-center space-x-2">
                     <a href="#" class="nav-item">Dashboard</a>
-                    <a href="/" class="nav-item">Students</a>
+                    <a href="#" class="nav-item">Students</a>
                     <a href="#" class="nav-item">Courses</a>
                 </div>
             </div>
@@ -166,15 +166,16 @@
                 </div>
             </div>
 
-            <form class="space-y-8" action="/addStudent" method="post">
+            <form class="space-y-8" action="/editStudent/<%=student._id%>" method="post">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <!-- Name Field -->
+                     
                     <div class="space-y-2">
                         <label class="form-label">
                             <i class="fas fa-user text-red-500 mr-2"></i>
                             Full Name
                         </label>
-                        <input type="text" class="form-input" name="fullName" placeholder="Enter your full name" required>
+                        <input type="text" value="<%=student.name%>" class="form-input" name="fullName" placeholder="Enter your full name" required>
                     </div>
 
                     <!-- Email Field -->
@@ -183,7 +184,7 @@
                             <i class="fas fa-envelope text-red-500 mr-2"></i>
                             Email Address
                         </label>
-                        <input type="email" class="form-input" name="email" placeholder="your@email.com" required>
+                        <input type="email" value="<%=student.email%>" class="form-input" name="email" placeholder="your@email.com" required>
                     </div>
 
                     <!-- Place Field -->
@@ -192,7 +193,7 @@
                             <i class="fas fa-map-marker-alt text-red-500 mr-2"></i>
                             Place
                         </label>
-                        <input type="text" class="form-input" name="place" placeholder="City/Country" required>
+                        <input type="text" value="<%=student.place%>" class="form-input" name="place" placeholder="City/Country" required>
                     </div>
 
                     <!-- Course Field -->
@@ -202,7 +203,7 @@
                             Select Course
                         </label>
                         <select class="form-select" name="course" required>
-                            <option value="">Choose your course</option>
+                            <option value="<%=student.course%>"><%=student.course%></option>
                             <option value="computer_science">💻 Computer Science</option>
                             <option value="engineering">⚡ Engineering</option>
                             <option value="business">📊 Business</option>
@@ -217,7 +218,7 @@
                             Duration
                         </label>
                         <select class="form-select" name="duration" required>
-                            <option value="">Select duration</option>
+                            <option value="<%=student.duration%>"><%=student.duration%></option>
                             <option value="6 months">6 Months</option>
                             <option value="1 year">1 Year</option>
                             <option value="2 years">2 Years</option>
@@ -229,7 +230,7 @@
 
                 <!-- Form Actions -->
                 <div class="flex items-center justify-between pt-6 border-t border-red-100">
-                    <button type="button" onclick="window.location.href='/'" class="px-6 py-3 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-all duration-300">
+                    <button type="button" class="px-6 py-3 rounded-xl bg-red-50 text-red-600 hover:bg-red-100 transition-all duration-300">
                         <i class="fas fa-arrow-left mr-2"></i>
                         Back
                     </button>
